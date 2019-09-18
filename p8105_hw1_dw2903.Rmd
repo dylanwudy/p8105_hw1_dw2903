@@ -64,11 +64,12 @@ mean(as.numeric(pull(q2,log_vec_2)))
 Scatterplot of y vs x in logic variable
 ```{r}
 ggplot(q2, aes(x,y，colour=log_vec_2))+geom_point()
-
+ggsave("q2.png")
 ```
 Scatterplot of y vs x in numeric variable
 ```{r}
 ggplot(q2, aes(x,y,colour=num_vec_2))+geom_point()
+
 ```
 Scatterplot of y vs x in factor variable
 ```{r}
