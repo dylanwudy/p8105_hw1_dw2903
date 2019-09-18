@@ -6,5 +6,71 @@ author: Di Wu
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+
 ```
 
+## Question 1
+```{r}
+q1 = tibble(
+  ran_vec = c(rnorm(8)),#a random sample of size 8 from a standard Normal distribution
+  log_vec = as.logical(ran_vec >0),#a logical vector indicating whether elements of the sample are greater than 0
+  cha_vec = c("a","b","c","d","e","f","g","h"),#a character vector of length 8
+  fac_vec = c("A","B","C","B","C","C","A","C")#a factor vector of length 8, with 3 different factor “levels”
+)
+```
+mean of vectors
+```{r}
+mean(pull(q1,ran_vec))
+mean(pull(q1,log_vec))
+mean(pull(q1,cha_vec))
+mean(pull(q1,fac_vec))
+```
+no average for character vector and factor vector
+
+```{r}
+as.numeric(pull(q1,log_vec))*(pull(q1,ran_vec))
+as.factor(pull(q1,log_vec))*(pull(q1,ran_vec))
+as.numeric(as.factor(pull(q1,log_vec)))*(pull(q1,ran_vec))
+```
+factor can not multiply the random sample
+```{r}
+```
+## Question 2
+```{r}
+q2 = tibble(
+  x = c(rnorm(500)),#a random sample of size 500 from a standard Normal distribution
+  y = c(rnorm(500)),#a random sample of size 500 from a standard Normal distribution
+  log_vec_2 = as.logical(x+y > 1),#A logical vector indicating whether x + y > 1
+  num_vec_2 = as.numeric(log_vec_2),#A numeric vector created by coercing the above logical vector
+  fac_vec_2 = as.logical(log_vec_2)#A factor vector created by coercing the above logical vector
+)
+```
+size of the dataset
+```{r}
+nrow(q2)
+ncol(q2)
+```
+mean, median and standard deviation of x
+```{r}
+mean(pull(q2,x))
+median(pull(q2,x))
+sqrt(var(pull(q2,x)))
+```
+The proportion of cases for which `x+y>1`
+```{r}
+mean(as.numeric(pull(q2,log_vec_2)))
+```
+Scatterplot of y vs x in logic variable
+```{r}
+ggplot(q2, aes(x,y，colour=log_vec_2))+geom_point()
+
+```
+Scatterplot of y vs x in numeric variable
+```{r}
+ggplot(q2, aes(x,y,colour=num_vec_2))+geom_point()
+```
+Scatterplot of y vs x in factor variable
+```{r}
+ggplot(q2, aes(x,y,colour=fac_vec_2))+geom_point()
+```
